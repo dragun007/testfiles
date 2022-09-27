@@ -1,52 +1,51 @@
 <?php
 
+use common\models\File;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\GridView;
+
 /** @var yii\web\View $this */
-
-$this->title = 'My Yii Application';
+/** @var common\models\FileSearch $searchModel */
+/** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var \common\models\StatisticFileSearch $statisticFileSearch */
+/** @var \common\models\StatisticByDateFileSearch $statisticByDateFileSearch */
+$this->title = 'Files';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="site-index">
-    <div class="p-5 mb-4 bg-transparent rounded-3">
-        <div class="container-fluid py-5 text-center">
-            <h1 class="display-4">Congratulations!</h1>
-            <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
-            <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+<div class="file-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Document', ['file/create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <div class="row">
+        <div class="col-6">
+            <?php echo $this->render('../file/_search', ['model' => $statisticFileSearch]); ?>
+        </div>
+        <div class="col-6">
+            <?php echo $this->render('../file/_searchDateFile', ['model' => $statisticByDateFileSearch]); ?>
         </div>
     </div>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
 
-    <div class="body-content">
+            'id',
+            'user_id',
+            [
+                'attribute' => 'filename',
+                'value' => function (File $data) {
+                    return Html::a(Html::encode($data->filename), Url::to(['file/get', 'file_hash' => $data->file_hash]));
+                },
+                'format' => 'raw',
+            ],
+            'type',
+        ],
+    ]); ?>
 
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
 </div>
