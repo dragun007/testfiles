@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace common\models;
 
 use Yii;
@@ -26,7 +28,6 @@ class FileSearch extends File
      */
     public function scenarios(): array
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -40,8 +41,6 @@ class FileSearch extends File
     public function search(array $params): ActiveDataProvider
     {
         $query = File::find();
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

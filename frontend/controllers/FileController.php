@@ -56,7 +56,7 @@ class FileController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView(int $id): string
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
@@ -69,7 +69,7 @@ class FileController extends Controller
      * @return string|\yii\web\Response
      * @throws \yii\base\Exception
      */
-    public function actionCreate()
+    public function actionCreate(): \yii\web\Response|string
     {
         $model = new File();
         if ($model->load(Yii::$app->request->post())) {
@@ -101,7 +101,7 @@ class FileController extends Controller
     /**
      * @throws NotFoundHttpException
      */
-    protected function findModel($id)
+    protected function findModel(int $id): ?File
     {
         if (($model = File::findOne(['id' => $id])) !== null) {
             return $model;
@@ -135,7 +135,7 @@ class FileController extends Controller
     /**
      * @throws NotFoundHttpException
      */
-    public function actionGet($file_hash)
+    public function actionGet(string $file_hash): \yii\web\Response
     {
         if (($model = File::findOne(['file_hash' => $file_hash])) !== null) {
             if (

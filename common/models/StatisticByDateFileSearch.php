@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace common\models;
 
 use yii\base\Model;
@@ -27,7 +29,7 @@ class StatisticByDateFileSearch extends File
         ];
     }
 
-    private function getDateAttributes()
+    private function getDateAttributes(): array
     {
         return ['day' => $this->day, 'month' => $this->month, 'year' => $this->year];
     }
@@ -103,11 +105,11 @@ class StatisticByDateFileSearch extends File
         return $dataProvider;
     }
 
-    private function getStrToTime(string $legth, string $date)
+    private function getStrToTime(string $length, string $date): bool|int
     {
-        if ($legth == 'month') {
+        if ($length == 'month') {
             $date = '1-' . $date;
-        } elseif ($legth == 'year') {
+        } elseif ($length == 'year') {
             $date = '1-1-' . $date;
         }
 
