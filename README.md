@@ -15,6 +15,7 @@ php yii init
 
 запустить 
 php yii migrate
+
 php yii migrate --migrationPath=@yii/rbac/migrations
 
 После создания юзера дернуть ручку с его айди, чтобы он стал админом:
